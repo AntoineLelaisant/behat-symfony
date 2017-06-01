@@ -1,0 +1,22 @@
+{% extends '@App/Resources/views/layout.html.twig' %}
+
+{% block content %}
+<div class="row">
+    {% for todo in todos %}
+        <div class="col-md-4">
+            <div class="card" style="margin-bottom: 20px">
+                <div class="card-header">
+                    {{ todo.name }}
+                </div>
+                <div class="card-block">
+                    <ul class="list-group list-group-flush">
+                        {% for item in todo.items %}
+                            <li class="list-group-item">{{ item.name }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

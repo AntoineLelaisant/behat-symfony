@@ -1,0 +1,35 @@
+version: '2'
+
+services:
+
+  php:
+      restart: on-failure
+      build:
+        context: .
+      environment:
+          SYMFONY_ENV: dev
+          SYMFONY_DEBUG: 1
+          SYMFONY__database_host: db
+          SYMFONY__database_name: behat-symfony
+          SYMFONY__database_user: root
+          SYMFONY__database_password: root
+          SYMFONY__assets__base_url: 'http://nginx'
+      volumes:
+          - '.:/usr/src/app'
+
+  db:
+    restart: on-failure
+    build:
+      context: docker/db
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: behat-symfony
+    ports:
+        - '3306:3306'
+
+  nginx:
+      restart: on-failure
+      build:
+          context: docker/nginx
+      ports:
+        - '80:80'

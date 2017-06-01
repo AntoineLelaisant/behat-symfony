@@ -1,0 +1,14 @@
+App\Model\Item:
+    type: entity
+
+    id:
+        id: { type: integer, id: true, generator: { strategy: IDENTITY } }
+
+    fields:
+      name: { type: string }
+      status: { type: string }
+
+    manyToOne:
+      todo:
+        targetEntity: App\Model\Todo
+        inversedBy: items

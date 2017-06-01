@@ -1,0 +1,14 @@
+App\Model\Todo:
+    type: entity
+    id:
+        id: { type: integer, id: true, generator: { strategy: IDENTITY } }
+
+    fields:
+      name: { type: string }
+
+    oneToMany:
+      items:
+        targetEntity: App\Model\Item
+        mappedBy: todo
+        cascade: [ persist ]
+

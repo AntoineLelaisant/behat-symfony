@@ -1,0 +1,11 @@
+#!/bin/bash
+
+set -xeuo pipefail
+
+docker-compose exec php rm -rf /dev/shm/qspot 2> /dev/null || true
+docker-compose exec php mkdir -p data mink_errors data/invoices
+docker-compose exec php chown -R 1000:33 .
+docker-compose exec php chmod a+rwx -R mink_errors var/logs || true
+
+docker-compose exec --user 1000:33 php sh -c "php bin/console cache:clear"
+docker-compose exec --user 1000:33 php sh -c "php bin/console assets:install web"
