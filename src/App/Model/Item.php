@@ -22,10 +22,23 @@ class Item
     /** @var Todo */
     private $todo;
 
-    public function __construct(string $name)
+    public function __construct(string $name, Todo $todo)
     {
         $this->name = $name;
         $this->status = self::STATUS_PENDING;
+
+        $this->todo = $todo;
+        $this->todo->addItem($this);
+    }
+
+    public static function fromArray(array $data = [])
+    {
+        $data = array_merge([
+            'name' => '',
+            'todo' => Todo::fromArray(),
+        ], $data);
+
+        return new self($data['name'], $data['todo']);
     }
 
     public function rename(string $name)
@@ -92,5 +105,10 @@ class Item
     public function isCancelled() : bool
     {
         return $this->status === self::STATUS_CANCELLED;
+    }
+
+    public function setName(string $name)
+    {
+        $this->name = $name;
     }
 }

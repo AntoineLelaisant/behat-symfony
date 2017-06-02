@@ -1,0 +1,9 @@
+{% extends '@App/Resources/views/layout.html.twig' %}
+
+{% block content %}
+    {{ form_start(form) }}
+        {{ form_row(form) }}
+
+        <input class="btn btn-primary" type="submit" value="Créer"/>
+    {{ form_end(form) }}
+{% endblock %}

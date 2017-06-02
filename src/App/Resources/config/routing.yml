@@ -1,3 +1,11 @@
 app_todo_index:
     path: /todos
     defaults: { _controller: 'App:Todo:index' }
+
+app_todo_create:
+    path: /todos/create
+    defaults: { _controller: 'App:Todo:createTodo' }
+
+app_item_create:
+    path: /todos/{todoId}/item/create
+    defaults: { _controller: 'App:Todo:addItem' }

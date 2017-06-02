@@ -19,7 +19,7 @@ class Todo
     /** @var Item[] */
     private $items;
 
-    public function __construct(string $name, array $items = [])
+    public function __construct(string $name, Collection $items)
     {
         $this->name = $name;
 
@@ -34,12 +34,38 @@ class Todo
             $item->attachTo($this);
         }
 
-        $this->items = new ArrayCollection($items);
+        $this->items = $items ?: new ArrayCollection();
+    }
+
+    public static function fromArray(array $data = [])
+    {
+        $data = array_merge([
+            'name' => '',
+            'items' => new ArrayCollection(),
+        ], $data);
+
+        return new self($data['name'], $data['items']);
+    }
+
+    /**
+     * @return int
+     */
+    public function getId() : int
+    {
+        return $this->id;
     }
 
     public function getName() : string
     {
         return $this->name;
+    }
+
+    /**
+     * @param $name string
+     */
+    public function setName(string $name)
+    {
+        $this->name = $name;
     }
 
     /**
