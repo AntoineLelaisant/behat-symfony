@@ -36,6 +36,11 @@ class TodoController extends Controller
             $em->persist($form->getData());
             $em->flush();
 
+            $this->addFlash('success', sprintf(
+                'La todo %s a bien été créee',
+                $todo->getName()
+            ));
+
             return $this->redirectToRoute('app_todo_index');
         }
 
@@ -63,6 +68,12 @@ class TodoController extends Controller
 
             $em->persist($form->getData());
             $em->flush();
+
+            $this->addFlash('success', sprintf(
+                'L\'item %s a bien été ajouté à la todo %s',
+                $item->getName(),
+                $todo->getName()
+            ));
 
             return $this->redirectToRoute('app_todo_index');
         }
