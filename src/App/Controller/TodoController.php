@@ -13,9 +13,13 @@ use App\Form\Type\CreateItem;
 
 class TodoController extends Controller
 {
-    public function indexAction() : Response
+    public function indexAction(Request $request) : Response
     {
-        $todos = $this->get('doctrine')->getManager()->getRepository(Todo::class)->findAll();
+        if ('' !== $q = $request->query->get('q', '')) {
+            $todos = $this->get('doctrine')->getManager()->getRepository(Todo::class)->findByName($q);
+        } else {
+            $todos = $this->get('doctrine')->getManager()->getRepository(Todo::class)->findAll();
+        }
 
         return $this->render('@App/Resources/views/Todo/index.html.twig', [
             'todos' => $todos,

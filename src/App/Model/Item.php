@@ -35,7 +35,7 @@ class Item
     {
         $data = array_merge([
             'name' => '',
-            'todo' => Todo::fromArray(),
+            'todo' => Todo::fromArray([]),
         ], $data);
 
         return new self($data['name'], $data['todo']);

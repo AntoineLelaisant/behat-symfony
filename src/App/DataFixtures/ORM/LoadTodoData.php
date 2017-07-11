@@ -6,6 +6,7 @@ use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use App\Model\Todo;
 use App\Model\Item;
+use Doctrine\Common\Collections\ArrayCollection;
 
 class LoadTodoData implements FixtureInterface
 {
@@ -13,11 +14,11 @@ class LoadTodoData implements FixtureInterface
     {
         for ($i = 0; $i < 20; ++$i) {
             $manager->persist(
-                new Todo("Todo $i", [
-                    new Item('Apprendre le BDD'),
-                    new Item('Apprendre Gherkin'),
-                    new Item('Apprendre Behat')
-                ])
+                new Todo("Todo $i", new ArrayCollection([
+                    Item::fromArray(['name' => 'Learn BDD']),
+                    Item::fromArray(['name' => 'Learn Gherkin']),
+                    Item::fromArray(['name' => 'Learn Behat']),
+                ]))
             );
         }
 
